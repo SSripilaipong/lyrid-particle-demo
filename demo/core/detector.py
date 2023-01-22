@@ -1,5 +1,10 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+
+from lyrid import Address, Actor
 
 
 class CollisionDetector(ABC):
-    pass
+
+    @abstractmethod
+    def create_actor(self, game_loop_actor: Address) -> Actor:
+        pass
