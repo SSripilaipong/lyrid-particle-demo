@@ -6,7 +6,7 @@ from lyrid import Actor, use_switch, switch, Address
 from demo.core.common import Start
 from demo.core.game_loop import WaitForGameEnded, GameEnded
 from .loop import loop
-from .state import GameState
+from .state import GameStateManager
 from ..core.engine import CurrentParticlePositions
 
 
@@ -17,17 +17,17 @@ class GameLoopActor(Actor):
     game_running: bool = False
     user_address: Optional[Address] = None
     user_ref_id: Optional[str] = None
-    game_state: Optional[GameState] = None
+    state: Optional[GameStateManager] = None
 
     @switch.message(type=Start)
     def start(self):
-        self.game_state = GameState()
-        self.run_in_background(loop, args=(self.dimension, self.game_state))
+        self.state = GameStateManager()
+        self.run_in_background(loop, args=(self.dimension, self.state))
         self.game_running = True
 
     @switch.message(type=CurrentParticlePositions)
     def update_particle_positions(self, message: CurrentParticlePositions):
-        self.game_state.update_particle_positions(message.positions)
+        self.state.update_particle_positions(message.positions)
 
     @switch.ask(type=WaitForGameEnded)
     def wait_for_game_ended(self, sender: Address, ref_id: str):

@@ -14,12 +14,14 @@ class PyGameSystem:
     game_loop: GameLoop
     engine: Engine
     dimension: Tuple[int, int]
+    n_particles: int
 
     def start(self):
         system = ActorSystem()
 
         game_loop_actor = system.spawn(self.game_loop.create_actor(self.dimension), initial_message=Start())
-        system.spawn(self.engine.create_actor(game_loop_actor, self.dimension), initial_message=Start())
+        system.spawn(self.engine.create_actor(game_loop_actor, self.dimension, n_particles=self.n_particles),
+                     initial_message=Start())
 
         system.ask(game_loop_actor, WaitForGameEnded())
 
