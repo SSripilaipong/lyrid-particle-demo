@@ -1,7 +1,7 @@
 from demo import PyGameSystem, PyGameLoop
-from demo.detector import SequentialCollisionDetector
+from demo.engine import SequentialEngine
 
 
 def test_sequential():
-    system = PyGameSystem(PyGameLoop(), SequentialCollisionDetector())
+    system = PyGameSystem(PyGameLoop(), SequentialEngine())
     system.start()
