@@ -1,2 +1,2 @@
-from .game_loop import PyGameLoop
+from .game import GameLoop
 from .system import PyGameSystem

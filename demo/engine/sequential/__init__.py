@@ -1,1 +1,1 @@
-from .detector import SequentialEngine
+from .engine import SequentialEngine
